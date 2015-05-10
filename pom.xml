@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+							http://maven.apache.org/xsd/maven-4.0.0.xsd">
+							
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>org.eu.antenna.coruna</groupId>
+  	<artifactId>intrantenna</artifactId>
+  	<version>0.0.1</version>
+  	<packaging>war</packaging>
+  
+  	<name>IntrAntenna</name>
+  	<description>Membership AEGEE Website</description>
+
+	<build>
+	
+		<resources>
+			
+			<resource>
+       			<directory>src/main/resources</directory>
+       		</resource>
+       	
+		</resources>
+		
+		<plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <verbose>true</verbose>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            
+      	</plugins>
+            
+	</build>
+	
+	<properties>
+	
+	</properties>
+	
+	<dependencies>
+
+	</dependencies>
+
+</project>
