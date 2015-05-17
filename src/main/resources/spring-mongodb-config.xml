@@ -3,20 +3,22 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xmlns:context="http://www.springframework.org/schema/context"
-          xmlns:mongo="http://www.springframework.org/schema/data/mongo"
           xmlns:bean="http://www.springframework.org/schema/beans"
+          xmlns:mongo="http://www.springframework.org/schema/data/mongo"
           xsi:schemaLocation=
           "http://www.springframework.org/schema/context
           http://www.springframework.org/schema/context/spring-context-4.1.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
           http://www.springframework.org/schema/data/mongo 
           http://www.springframework.org/schema/data/mongo/spring-mongo-1.7.xsd">
 
 	<!-- Connection -->
-    <mongo:mongo-client id="mongo" host="${mongodb.host}" port="${mongodb.port}"
-    			write-concern="${mongodb.writeconcern}" credentials="${mongodb.username}:${mongodb.password}@${mongodb.dbname}">
-    	<mongo:client-options connections-per-host="${mongodb.connectionsPerHost}" 
+    <mongo:mongo-client id="mongoClient" host="${mongodb.host}" port="${mongodb.port}" 
+			credentials="${mongodb.credentials}">
+    	<!--<mongo:client-options connections-per-host="${mongodb.connectionsPerHost}" 
     					/>
-                  <!-- threads-allowed-to-block-for-connection-multiplier="4"
+                  threads-allowed-to-block-for-connection-multiplier="4"
                    connect-timeout="1000"
                    max-wait-time="1500}"
                    auto-connect-retry="true"
@@ -29,7 +31,7 @@
     </mongo:mongo-client>
     
     <!-- Factory -->
-    <mongo:db-factory dbname="${mongodb.dbname}" mongo-ref="mongo" write-concern="NONE"/>
+    <mongo:db-factory dbname="${mongodb.dbname}" mongo-ref="mongoClient" write-concern="${mongodb.writeconcern}" />
     
     <!-- Template -->
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
@@ -37,7 +39,7 @@
 	</bean>
 	
 	<!-- Repositories -->
-	<mongo:repositories base-package="org.eu.aegee.coruna.intrantenna.model.domain" mongo-template-ref="mongoTemplate" />
+	<mongo:repositories base-package="org.eu.aegee.coruna.intrantenna.model.repositories" mongo-template-ref="mongoTemplate" />
 	
 	<!-- use this post processor to translate any MongoExceptions thrown in @Repository annotated classes -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />

@@ -1,6 +1,8 @@
 package org.eu.aegee.coruna.intrantenna.controller;
 
-import org.eu.aegee.coruna.intrantenna.model.domain.user.User;
+import java.security.Principal;
+
+import org.eu.aegee.coruna.intrantenna.model.domain.User;
 import org.eu.aegee.coruna.intrantenna.model.exceptions.DuplicateInstanceException;
 import org.eu.aegee.coruna.intrantenna.model.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +22,31 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value="/")
-	public String index() {
-		
-		return "index";
-	}
+//	@RequestMapping(value="/")
+//	public String index() {
+//		
+//		return "index";
+//	}
 	
-	@RequestMapping(value="/createUser", method=RequestMethod.POST)
-	public void createUser(Model model) {
+//	@RequestMapping(value="/createUser", method=RequestMethod.POST)
+//	public void createUser(Model model) {
+//		
+//		//ModelAndView mav = new ModelAndView("user");
+//		
+//		try {
+//			
+//			User user = userService.create(null);
+//			
+//		} catch (DuplicateInstanceException e) {
+//		
+//			e.printStackTrace();
+//		}
+//	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(Principal principal) {
 		
-		//ModelAndView mav = new ModelAndView("user");
-		
-		try {
-			
-			User user = userService.create(null);
-			
-		} catch (DuplicateInstanceException e) {
-		
-			e.printStackTrace();
-		}
+		return principal != null ? "home/homeSignedIn" : "home/homeNotSignedIn";
 	}
 	
 }

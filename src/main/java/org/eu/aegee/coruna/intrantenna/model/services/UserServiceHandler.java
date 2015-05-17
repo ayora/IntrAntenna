@@ -2,11 +2,10 @@ package org.eu.aegee.coruna.intrantenna.model.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.eu.aegee.coruna.intrantenna.model.domain.user.User;
-import org.eu.aegee.coruna.intrantenna.model.domain.user.UserRepository;
+import org.eu.aegee.coruna.intrantenna.model.domain.User;
 import org.eu.aegee.coruna.intrantenna.model.exceptions.DuplicateInstanceException;
 import org.eu.aegee.coruna.intrantenna.model.exceptions.InstanceNotFoundException;
+import org.eu.aegee.coruna.intrantenna.model.repositories.user.UserRepository;
 
 /**
  * @author Alberto Ayora Pais

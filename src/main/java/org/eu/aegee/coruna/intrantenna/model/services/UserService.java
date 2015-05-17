@@ -1,6 +1,6 @@
 package org.eu.aegee.coruna.intrantenna.model.services;
 
-import org.eu.aegee.coruna.intrantenna.model.domain.user.User;
+import org.eu.aegee.coruna.intrantenna.model.domain.User;
 import org.eu.aegee.coruna.intrantenna.model.exceptions.DuplicateInstanceException;
 import org.eu.aegee.coruna.intrantenna.model.exceptions.InstanceNotFoundException;
 

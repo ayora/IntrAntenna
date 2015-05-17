@@ -1,14 +1,13 @@
-package org.eu.aegee.coruna.intrantenna.model.domain.user;
+package org.eu.aegee.coruna.intrantenna.model.domain;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.bson.types.ObjectId;
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -39,7 +38,7 @@ public class User {
 	@Field("lastname")
 	private String lastName;
 
-	private Calendar birthday;
+	private DateTime birthday;
 
 	private Gender gender;
 
@@ -54,13 +53,11 @@ public class User {
 
 	private String country;
 	
-	
-	// TODO probablemente haya que cambiar Calendar a DateTime (JODA Time library)
 	@CreatedDate
-	private Calendar createdDate;
+	private DateTime createdDate;
 	
 	@LastModifiedBy
-	private Calendar modifiedDate;
+	private DateTime modifiedDate;
 
 	// TODO type and field of studies and employment
 
@@ -68,7 +65,7 @@ public class User {
 	
 	@PersistenceConstructor
 	public User(String email, String firstName, String lastName,
-			Calendar birthday, Gender gender, String phone, String address,
+			DateTime birthday, Gender gender, String phone, String address,
 			String zipCode, String city, String country) {
 
 		super();
@@ -113,11 +110,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public Calendar getBirthday() {
+	public DateTime getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Calendar birthday) {
+	public void setBirthday(DateTime birthday) {
 		this.birthday = birthday;
 	}
 
@@ -169,11 +166,11 @@ public class User {
 		this.country = country;
 	}
 	
-	public Calendar getCreatedDate() {
+	public DateTime getCreatedDate() {
 		return createdDate;
 	}
 
-	public Calendar getModifiedDate() {
+	public DateTime getModifiedDate() {
 		return modifiedDate;
 	}
 
@@ -184,7 +181,7 @@ public class User {
 
 		return "User [id=" + id + ", firstName=" + firstName + ", "
 				+ ", lastName=" + lastName + ", email=" + email + ", birthday="
-				+ sdf.format(birthday.getTime()) + ", gender="
+				+ sdf.format(birthday.toDate()) + ", gender="
 				+ gender.toString() + ", phone=" + phone + ", address="
 				+ address + ", zipCode=" + zipCode + ", city=" + city
 				+ ", country=" + country + "]";

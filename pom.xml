@@ -11,24 +11,60 @@
   
   	<name>IntrAntenna</name>
   	<description>Membership AEGEE Website</description>
+  	
+  	<properties>
+	
+		<!-- Dependencies -->
+		<mongodb-driver.version>3.0.1</mongodb-driver.version>
+		<joda-time.version>2.7</joda-time.version>
+		<spring-framework.version>4.1.6.RELEASE</spring-framework.version>
+		<spring-data-mongodb.version>1.7.0.RELEASE</spring-data-mongodb.version>
+		<spring-secutiry-core.version>4.0.1.RELEASE</spring-secutiry-core.version>
+		<spring-thymeleaf.version>2.1.4.RELEASE</spring-thymeleaf.version>
+		<thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
+		
+		<!-- Plug-Ins -->
+		<compiler.version>1.7</compiler.version>
+		<jetty-maven.version>9.3.0.RC0</jetty-maven.version>
+		
+	</properties>
 
 	<build>
 	
-		<finalName>intrantenna-{version}</finalName>
+		<finalName>intrantenna</finalName>
 	
 		<resources>
 			
-			<resource>
-       			<directory>src/main/resources</directory>
-       		</resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>spring-*-config.xml</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+
+            <resource>
+                <directory>../src/main/jetty</directory>
+                <includes>
+                    <include>jetty-env.xml</include>
+                </includes>
+                <targetPath>../jetty</targetPath>
+                <filtering>true</filtering>
+            </resource>
        	
 		</resources>
 		
 		<plugins>
 
+			<!-- Compiler configuration -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
                 <configuration>
                     <verbose>true</verbose>
                     <source>${compiler.version}</source>
@@ -37,24 +73,38 @@
                 </configuration>
             </plugin>
             
+            <!-- Jetty configuration -->
+            <plugin>
+  				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+  				<version>${jetty-maven.version}</version>
+  				<configuration>
+  					<reload>manual</reload>
+  					<webApp>
+                		<contextPath>/intrantenna</contextPath>
+            		</webApp>
+  				</configuration>
+			</plugin>
+			
+			
+          
+
+                    <!-- Log to the console. 
+                    <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
+                        
+                        <append>true</append>
+                    </requestLog>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>9090</port>
+                        </connector>
+                    </connectors>
+                </configuration> -->
+			
+            
       	</plugins>
             
 	</build>
-	
-	<properties>
-	
-		<!-- Dependencies -->
-		<mongodb-driver.version>3.0.1</mongodb-driver.version>
-		<spring-framework.version>4.1.6.RELEASE</spring-framework.version>
-		<spring-data-mongodb.version>1.7.0.RELEASE</spring-data-mongodb.version>
-		<spring-secutiry-core.version>4.0.1.RELEASE</spring-secutiry-core.version>
-		<spring-thymeleaf.version>2.1.2.RELEASE</spring-thymeleaf.version>
-		<thymeleaf.version></thymeleaf.version>
-		
-		<!-- Plug-Ins -->
-		<compiler.version>1.7</compiler.version>
-		
-	</properties>
 	
 	<dependencies>
 	
@@ -65,14 +115,32 @@
 			<version>${mongodb-driver.version}</version>
 		</dependency>
 		
+		<!-- Joda Time -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda-time.version}</version>
+		</dependency>
+		
 		<!-- Spring Data - MongoDB -->
 		<dependency>
         	<groupId>org.springframework.data</groupId>
         	<artifactId>spring-data-mongodb</artifactId>
         	<version>${spring-data-mongodb.version}</version>
+        	<exclusions>
+        		<exclusion>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-expression</artifactId>
+        		</exclusion>
+    		</exclusions>
     	</dependency>
     	
     	<!-- Spring -->
+    	<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -89,16 +157,40 @@
 			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-expression</artifactId>
+    		<version>${spring-framework.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring-secutiry-core.version}</version>
-		</dependency>	
-		
+		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>${spring-thymeleaf.version}</version>
 		</dependency>
+		
+		<!-- Thymeleaf -->
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>${thymeleaf.version}</version>
+		</dependency>
+		
+		<!-- Servlet Library -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
     
 	</dependencies>
 	
